@@ -1,0 +1,39 @@
+@import "../../theme";
+
+.login-page {
+    padding: 2%;
+    margin: auto;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+[data-theme='dark'] .login-page {
+    background-color: $color-dark-background;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-button {
+    justify-content: center;
+    padding-top: 10px;
+
+    button {
+        width: 50%;
+    }
+}
+
+.forgot-password {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+

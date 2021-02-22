@@ -1,0 +1,19 @@
+.linked-card {
+    &:hover {
+        .card {
+            background-color: rgba(0, 0, 0, .05);
+        }
+    }
+
+    .card {
+        min-height: 102px;
+    }
+
+    .card-body {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    text-decoration: none !important;
+}

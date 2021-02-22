@@ -1,0 +1,21 @@
+@import '../../../../theme';
+
+.tree-node {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 8px;
+
+    &:hover {
+        background: lightgray;
+    }
+}
+
+[data-theme='dark'] .tree-node:hover {
+    background: $color-secondary;
+}
+
+.node-icon {
+    font-size: 12px;
+    padding-right: 5px;
+}

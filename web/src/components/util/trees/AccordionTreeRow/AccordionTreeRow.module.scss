@@ -1,0 +1,18 @@
+.accordion-body {
+    overflow-x: auto;
+}
+
+.accordion-body-link {
+    color: black;
+    display: flex;
+    align-items: center;
+}
+
+.accordion-caret-container {
+    cursor: pointer;
+}
+
+.accordion-caret-span {
+    padding-right: 8px;
+    padding-left: .75rem;
+}
