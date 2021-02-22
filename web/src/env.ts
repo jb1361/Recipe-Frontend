@@ -9,8 +9,7 @@ const EnvironmentSchema = object<typeof process.env>({
   REACT_APP_API_URL: string().required('Required'),
   PUBLIC_URL: string(),
   REACT_APP_DARK_MODE: string().notRequired(),
-  REACT_APP_HOST_URL: string().required('Required'),
-  REACT_APP_WS_HOST: string().required('Required')
+  REACT_APP_HOST_URL: string().required('Required')
 });
 export function validateEnvironment() {
   try {

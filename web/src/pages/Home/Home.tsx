@@ -1,11 +1,7 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
-import {RoutePaths} from '../../router/RoutePaths';
 
-export class Home extends React.Component {
-  render() {
+export function Home() {
     return (
-      <Redirect to={RoutePaths.Holdem}/>
+      <div>Working</div>
     );
-  }
 }

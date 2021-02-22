@@ -1,14 +1,12 @@
 import {entities, EntitiesActions} from './entities';
 import {Action as ReduxAction, Dispatch} from 'redux';
 import {BatchAction} from 'redux-batched-actions';
-import {holdemClient, HoldemClientActions} from './holdem';
 
 /**
  * Purposefully only returning a plain object, combineReducers will be called later.
  */
 export const commonReducers = {
-  entities,
-  holdemClient
+  entities
 };
 
 type MapToState<T extends {[key: string]: (...args: any) => any}> = {
@@ -21,7 +19,7 @@ export default interface Action<T = any, D = any> extends ReduxAction<T> {
   data: D;
 }
 
-export type CommonActions = EntitiesActions | BatchAction | HoldemClientActions;
+export type CommonActions = EntitiesActions | BatchAction;
 export type CommonDispatch = Dispatch<CommonActions>;
 
 export type GetCommonState = () => CommonState;

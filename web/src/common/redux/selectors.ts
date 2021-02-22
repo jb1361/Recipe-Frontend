@@ -6,7 +6,6 @@ import {createSelector} from 'reselect';
 import memoize from 'lodash.memoize';
 
 export const getEntities = (state: CommonState) => state.entities;
-export const getHoldemClient = (state: CommonState) => state.holdemClient;
 
 export const selector = <T>(func: (state: CommonState) => T) => func;
 

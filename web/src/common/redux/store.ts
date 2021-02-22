@@ -8,7 +8,6 @@ import {Reducer} from 'redux';
 import {enableBatching} from 'redux-batched-actions';
 import {info} from '../util/logger';
 import {PersistConfig} from 'redux-persist/es/types';
-import websocketMiddleware from './middleware/websocketMiddleware';
 
 export const configureSharedStore = <T>(appReducer: object, compose: any, middleware: any[] = [], initialState?: T, onReady?: () => void) => {
     const rootReducer = combineReducers({
@@ -19,7 +18,7 @@ export const configureSharedStore = <T>(appReducer: object, compose: any, middle
     const storeInstance = createStore(
         enableBatching(root),
         initialState,
-        compose(applyMiddleware(thunk as ThunkMiddleware<T, AnyAction>, websocketMiddleware, ...middleware))
+        compose(applyMiddleware(thunk as ThunkMiddleware<T, AnyAction>, ...middleware))
     );
     const persistorInstance = persistGlobalStore(storeInstance, onReady);
     return {store: storeInstance, persistor: persistorInstance, appDispatch: storeInstance.dispatch};
