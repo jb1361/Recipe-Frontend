@@ -19,6 +19,7 @@ export interface Instruction {
 
 export interface Recipe {
   id: number;
+  author: string;
   title: string;
   comment: string;
   ingredients: Ingredient[];

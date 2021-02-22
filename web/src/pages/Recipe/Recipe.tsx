@@ -9,16 +9,25 @@ import {CenteredSpinner} from '../../components/util/widgets/CenteredSpinner/Cen
 import {CenteredErrorMessage} from '../../components/util/widgets/CenteredErrorMessage/CenteredErrorMessage';
 import {WebState} from '../../redux/types/WebState';
 import RecipeRoutes from './RecipeRoutes';
-import {Dispatch} from 'redux';
+import {bindActionCreators, Dispatch} from 'redux';
+import {handleAxiosError} from '../../common/util/http';
+import {loadRecipes} from '../../common/redux/entities/recipe';
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-function Recipe({match}: Props) {
+function Recipe({match, actions}: Props) {
   const [loading, setLoading] = useState(true);
-  const [errorMessage] = useState<string | undefined>();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+
   useMount(async () => {
+    try {
+      await actions.loadRecipes();
+    } catch (e) {
+      setErrorMessage(handleAxiosError(e, {connectionMsg: 'Failed to load recipes'}));
+    }
     setLoading(false);
   });
+
   const renderContent = () => {
     return (
       <Row noGutters={true} style={{flexGrow: 1}}>
@@ -46,6 +55,6 @@ function Recipe({match}: Props) {
 
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
+const mapDispatchToProps = (dispatch: Dispatch) => ({ actions: bindActionCreators({loadRecipes: loadRecipes}, dispatch)});
 const mapStateToProps = (state: WebState) => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(Recipe);

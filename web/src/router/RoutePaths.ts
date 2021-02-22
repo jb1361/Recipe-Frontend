@@ -28,7 +28,7 @@ const RecipeBasePath = '/recipe';
 const RecipePaths = {
   View: RecipeBasePath + '/:recipeId',
   New: RecipeBasePath + '/new/:recipeId',
-  Edit: RecipeBasePath + '/view/:recipeId'
+  Edit: RecipeBasePath + '/edit/:recipeId'
 };
 
 export function applyBasePath(basePath: string, pathFn: (basePath: string) => string) {

@@ -4,81 +4,59 @@ import {connect} from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import {bindActionCreators, Dispatch} from 'redux';
 import BootstrapTable, {ColumnDescription} from 'react-bootstrap-table-next';
-import {HoldemTable, tableStore} from '../../../../common/redux/entities/table';
-import {useMount} from '../../../../hooks/useMount';
-import {handleAxiosError} from '../../../../common/util/http';
-import {loadRecipes, recipeStore} from '../../../../common/redux/entities/recipe';
+import {loadRecipes, Recipe, recipeStore} from '../../../../common/redux/entities/recipe';
+import IconButton from '../../../../components/util/widgets/IconButton/IconButton';
+import {RoutePaths} from '../../../../router/RoutePaths';
+import {Redirect} from 'react-router-dom';
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-function Recipes({recipes, actions, match}: Props) {
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
-  const [leftPaneExpanded, setLeftPaneExpanded] = useState(false);
+function Recipes({recipes}: Props) {
+  const [redirectUrl, setRedirectUrl] = useState('');
+  const renderRedirect = () => redirectUrl ? <Redirect to={redirectUrl}/> : null;
 
-  useMount(async () => {
-    try {
-      await actions.loadRecipes();
-    } catch (e) {
-      setErrorMessage(handleAxiosError(e, {connectionMsg: 'Failed to load recipes'}));
-    }
-    setLoading(false);
-  });
-
-  const tableStatusFormatter = (cell: any, table: HoldemTable) => {
-    return (
-      <>
-        <div style={{marginRight: '10px', display: 'flex', justifyContent: 'center'}}>
-          {table.started ? 'Playing' : 'Waiting for players'}
-        </div>
-      </>
-    );
-  };
-
-  const joinButton = (row: any, col: HoldemTable) => {
+  const viewButton = (row: any, col: Recipe) => {
     return (
       <div>
-        test
-        {/*<IconButton icon={'arrow-right'} link={RoutePaths.holdemPaths.Play.replace(':tableId', col.id)}/>*/}
+        <IconButton
+          icon={'eye'}
+          link={RoutePaths.recipePaths.View.replace(':recipeId', col.id.toString())}
+          customSize={20}
+          iconToolTipText={'View Recipe'}
+        />
       </div>
     );
   };
 
   const columns: ColumnDescription[] = [
     {
-      dataField: 'name',
-      text: 'Name'
+      dataField: 'author',
+      text: 'Author'
     },
     {
-      dataField: 'buyInAmount',
-      text: 'Buy In'
+      dataField: 'title',
+      text: 'Title'
     },
     {
-      dataField: 'tableStatusField',
-      text: 'Status',
-      isDummyField: true,
-      formatter: tableStatusFormatter,
-      headerStyle: () => {
-        return { width: '10rem'};
-      },
-      style: () => {
-        return { width: '10rem'};
-      }
-    },
-    {
-      dataField: 'players',
-      text: 'Players'
-    },
-    {
-      dataField: 'joinTable',
+      dataField: 'editRecipe',
       text: '',
       isDummyField: true,
-      formatter: (row: any, col: any) => joinButton(row, col)
+      formatter: (row: any, col: any) => viewButton(row, col),
+      headerStyle: () => {
+        return { width: '3rem'};
+      },
+      style: () => {
+        return { width: '3rem'};
+      }
     }
   ];
 
   return (
     <>
+      {renderRedirect()}
+      <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem', marginRight: '.5rem'}}>
+        <IconButton icon={'plus-circle'} onClick={() => setRedirectUrl(RoutePaths.recipePaths.New)} size={'2x'} iconToolTipText={'Add Recipe'}/>
+      </div>
       <BootstrapTable keyField='id' data={recipes} columns={columns}/>
     </>
   );
