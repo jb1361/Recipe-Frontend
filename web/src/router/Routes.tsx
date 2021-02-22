@@ -9,6 +9,7 @@ import {LogOut} from '../pages/Logout/Logout';
 import {Home} from '../pages/Home/Home';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import Recipe from '../pages/Recipe/Recipe';
 
 const Routes = () => (
   <Router history={History}>
@@ -18,6 +19,7 @@ const Routes = () => (
       <Route path={RoutePaths.forgotPassword} component={ForgotPassword} redirectTo={RoutePaths.home}/>
       <Route path={RoutePaths.resetPassword} component={ResetPassword} redirectTo={RoutePaths.home}/>
       <PrivateRoute exact={true} path={RoutePaths.home} component={Home}/>
+      <PrivateRoute path={RoutePaths.Recipe} component={Recipe}/>
       <Route component={NotFound}/>
     </Switch>
   </Router>

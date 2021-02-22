@@ -1,7 +1,9 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
+import {RoutePaths} from '../../router/RoutePaths';
 
 export function Home() {
     return (
-      <div>Working</div>
+      <Redirect to={RoutePaths.Recipe}/>
     );
 }

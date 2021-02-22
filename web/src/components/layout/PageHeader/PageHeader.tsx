@@ -23,7 +23,7 @@ export function PageHeader(props: PageHeaderProps) {
           <img src={getLogoLink()} alt='Uptime RMX' style={{height: '3rem' }} />
         </Link>
         <h4 style={{marginBottom: 0}}>{props.label}</h4>
-        <HeaderLink to={RoutePaths.dashboard} text='Dashboard'/>
+        <HeaderLink to={RoutePaths.Recipe} text='Recipes'/>
         <IconButton styles={{marginLeft: '1rem'}} icon='sign-out-alt' link={RoutePaths.logout} size={'2x'} />
       </div>
       {props.children}

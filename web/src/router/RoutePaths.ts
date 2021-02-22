@@ -23,12 +23,12 @@ enum AuthenticationPaths {
   resetPassword = '/reset-password'
 }
 
-const HoldemBasePath = '/holdem';
+const RecipeBasePath = '/recipe';
 
-const HoldemPaths = {
-  Home: HoldemBasePath,
-  Lobby: HoldemBasePath + '/lobby',
-  Play: HoldemBasePath + '/play/:tableId'
+const RecipePaths = {
+  View: RecipeBasePath + '/:recipeId',
+  New: RecipeBasePath + '/new/:recipeId',
+  Edit: RecipeBasePath + '/view/:recipeId'
 };
 
 export function applyBasePath(basePath: string, pathFn: (basePath: string) => string) {
@@ -56,6 +56,6 @@ export const RoutePaths = {
   ...MiscellaneousPaths,
   ...AuthenticationPaths,
   ...DashboardPaths,
-  Holdem: HoldemBasePath,
-  holdemPaths: HoldemPaths
+  Recipe: RecipeBasePath,
+  recipePaths: RecipePaths
 };
