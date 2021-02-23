@@ -11,10 +11,9 @@ import {Redirect} from 'react-router-dom';
 
 type Props = RouteComponentProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-function Recipes({recipes}: Props) {
+function Recipes({recipes, favorites, actions: {setFavorite, unsetFavorite}}: Props) {
   const [redirectUrl, setRedirectUrl] = useState('');
   const renderRedirect = () => redirectUrl ? <Redirect to={redirectUrl}/> : null;
-
   const viewButton = (row: any, col: Recipe) => {
     return (
       <div>
@@ -28,7 +27,29 @@ function Recipes({recipes}: Props) {
     );
   };
 
+  const favoriteButton = (row: any, col: Recipe) => {
+    return (
+      <div>
+        <IconButton
+          icon={'star'}
+          customSize={20}
+          onClick={() => setFavorite(col.id)}
+        />
+        <IconButton
+          icon={'star-half'}
+          customSize={20}
+          onClick={() => unsetFavorite(col.id)}
+        />
+      </div>
+    );
+  };
+
   const columns: ColumnDescription[] = [
+    {
+      dataField: 'favorite',
+      text: 'Favorite',
+      formatter: (row: any, col: any) => favoriteButton(row, col)
+    },
     {
       dataField: 'author',
       text: 'Author'
@@ -62,6 +83,13 @@ function Recipes({recipes}: Props) {
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({ actions: bindActionCreators({loadRecipes: loadRecipes}, dispatch)});
-const mapStateToProps = (state: WebState) => ({recipes: recipeStore.selectors.getAsArray(state)});
+const mapDispatchToProps = (dispatch: Dispatch) => ({ actions: bindActionCreators({
+    loadRecipes: loadRecipes,
+    setFavorite: recipeStore.actions.setFavorite,
+    unsetFavorite: recipeStore.actions.unsetFavorite
+  }, dispatch)});
+const mapStateToProps = (state: WebState) => ({
+  recipes: recipeStore.selectors.getAsArray(state),
+  favorites: recipeStore.selectors.favorites(state)
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

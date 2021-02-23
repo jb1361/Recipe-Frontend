@@ -19,7 +19,7 @@ import {
   faCopy,
   faAngleDoubleRight,
   faAngleDoubleLeft,
-  faSpinner, faUserPlus, faUserCog, faArchive, faUserMinus, faUsers, faArrowRight
+  faSpinner, faUserPlus, faUserCog, faArchive, faUserMinus, faUsers, faArrowRight, faStar, faStarHalf
 } from '@fortawesome/free-solid-svg-icons';
 
 export function configureFontAwesome(): void {
@@ -49,6 +49,8 @@ export function configureFontAwesome(): void {
     faUserCog,
     faArchive,
     faUsers,
-    faArrowRight
+    faArrowRight,
+    faStar,
+    faStarHalf
   );
 }
